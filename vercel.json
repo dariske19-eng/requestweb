@@ -1,0 +1,9 @@
+{
+  "cleanUrls": true,
+  "functions": {
+    "api/card.js": {
+      "includeFiles": "assets/**",
+      "maxDuration": 15
+    }
+  }
+}

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Drizz Admin</title>
+<link rel="icon" href="/logo.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap">
+<style>
+:root{
+  --bg:#f2f8f3; --bg2:#e2f0e6; --surface:#ffffff; --ink:#0d2a18; --muted:#4a6a56; --line:#b5d3bf;
+  --accent:#1fae5b; --accent-ink:#ffffff; --glow:rgba(31,174,91,.28); --pattern:rgba(31,140,80,.22);
+  --nav:rgba(255,255,255,.75); --hero-a:#c9ebd5; --err:#c0392b;
+  box-sizing:border-box; padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg:#04140b; --bg2:#082116; --surface:#0b2417; --ink:#f2fff6; --muted:#9ec7ad; --line:#1c4a30;
+  --accent:#4ee57e; --accent-ink:#04140b; --glow:rgba(78,229,126,.45); --pattern:rgba(78,229,126,.2); --nav:rgba(255,255,255,.07); --hero-a:#14553338; --err:#ff8a7a;}
+}
+:root[data-theme="dark"]{--bg:#04140b; --bg2:#082116; --surface:#0b2417; --ink:#f2fff6; --muted:#9ec7ad; --line:#1c4a30;
+  --accent:#4ee57e; --accent-ink:#04140b; --glow:rgba(78,229,126,.45); --pattern:rgba(78,229,126,.2); --nav:rgba(255,255,255,.07); --hero-a:#14553338; --err:#ff8a7a;}
+html{scroll-padding-top:90px;scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Inter',system-ui,sans-serif;line-height:1.6;transition:background .3s,color .3s}
+.wrap{max-width:1000px;margin:0 auto;padding:0 20px}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+
+/* nav */
+header.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:16px;height:76px;max-width:1200px}
+.logo{display:flex;align-items:center;gap:10px;font-weight:800;font-style:italic;letter-spacing:.5px;color:var(--ink);text-decoration:none}
+.logo img{width:52px;height:52px;object-fit:contain}
+nav.links{margin-left:auto;display:flex;gap:6px;background:var(--nav);border:1px solid var(--line);border-radius:14px;padding:8px 14px}
+nav.links a{color:var(--accent);font-weight:600;text-decoration:none;padding:6px 14px;border-radius:8px}
+:root[data-theme="light"] nav.links a{color:#117a3e}
+nav.links a:hover{background:var(--glow)}
+.btn{display:inline-flex;align-items:center;gap:8px;font:700 1rem 'Inter',sans-serif;border-radius:10px;padding:12px 26px;cursor:pointer;text-decoration:none;border:1.5px solid var(--accent);transition:box-shadow .2s,transform .1s}
+.btn.solid{background:var(--accent);color:var(--accent-ink);box-shadow:0 0 24px var(--glow)}
+.btn.ghost{background:transparent;color:var(--ink);box-shadow:0 0 14px var(--glow) inset}
+.btn:hover{box-shadow:0 0 34px var(--glow)} .btn:active{transform:translateY(1px)}
+.theme{width:44px;height:44px;border-radius:12px;border:1.5px solid var(--line);background:var(--nav);color:var(--ink);cursor:pointer;font-size:1.1rem}
+@media(max-width:820px){nav.links{display:none}.bar .btn.cta{display:none}.langsel{margin-left:auto}}
+
+.langsel{width:auto;height:44px;padding:0 10px;border-radius:12px;font-weight:700;cursor:pointer;background:var(--nav)}
+/* hero */
+.hero{position:relative;min-height:calc(100vh - 76px);display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;
+  background:radial-gradient(ellipse 60% 55% at 50% 40%,var(--hero-a),transparent 70%),linear-gradient(var(--bg2),var(--bg))}
+.hero svg.deco{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.hero .in{position:relative;padding:60px 20px 90px}
+h1{font-size:clamp(2.6rem,9vw,5.6rem);font-weight:800;margin:0;letter-spacing:-1px;text-shadow:0 0 40px var(--glow)}
+.sub{letter-spacing:.2em;color:var(--muted);font-weight:300;font-size:clamp(.85rem,2.6vw,1.2rem);margin:22px 0 38px}
+.cta-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap}
+.trust{position:absolute;bottom:24px;left:0;right:0;color:var(--muted);font-size:.85rem;padding:0 20px}
+
+section.s{padding:80px 0}
+h2{font-size:clamp(1.7rem,4vw,2.4rem);margin:0 0 12px;font-weight:800}
+.lead{color:var(--muted);margin:0 0 32px;max-width:56ch}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:24px}
+.card h3{margin:0 0 6px;font-size:1.1rem}
+.card p{margin:0;color:var(--muted)}
+.ico{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:var(--glow);color:var(--accent);margin-bottom:14px;font-size:1.3rem}
+:root[data-theme="light"] .ico{color:#117a3e}
+ol.steps{margin:0;padding-left:20px;color:var(--muted);display:grid;gap:8px}
+ol.steps b{color:var(--ink)}
+
+/* form */
+form{display:grid;gap:16px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:600px){.row{grid-template-columns:1fr}}
+label{display:grid;gap:6px;font-weight:600;font-size:.92rem}
+input,select,textarea{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--accent);outline:none;box-shadow:0 0 0 3px var(--glow)}
+textarea{min-height:120px;resize:vertical}
+.err{color:var(--err);font-weight:600;min-height:1.2em;margin:0}
+.list{display:grid;gap:14px;margin-top:40px}
+.item{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px;display:grid;grid-template-columns:1fr;gap:6px}
+.item h3{margin:0;font-size:1.1rem}
+.item p{margin:4px 0 0;color:var(--muted);grid-column:1}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.tag{font-size:.78rem;font-weight:600;border:1px solid var(--line);border-radius:99px;padding:2px 10px;color:var(--muted)}
+.del{background:none;border:0;color:var(--muted);cursor:pointer;font:inherit;font-size:.85rem;text-decoration:underline;padding:0;justify-self:start;grid-column:1}
+.empty{border:1.5px dashed var(--line);border-radius:14px;padding:28px;text-align:center;color:var(--muted)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,140px);background:var(--accent);color:var(--accent-ink);padding:12px 22px;border-radius:10px;font-weight:700;transition:transform .25s;z-index:30;box-shadow:0 0 24px var(--glow)}
+.toast.show{transform:translate(-50%,0)}
+footer{border-top:1px solid var(--line);padding:32px 0;color:var(--muted);font-size:.9rem}
+.note{color:var(--muted);font-size:.9rem;margin:0 0 16px}
+.note[hidden]{display:none}
+#dbnote{color:var(--err);font-weight:600}
+.mine-h{margin:36px 0 0;font-size:1.2rem}
+.mine-h+.list{margin-top:14px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:14px;margin-bottom:20px}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:16px}
+.stat b{display:block;font-size:2rem;line-height:1.1;color:var(--accent)}
+:root[data-theme="light"] .stat b{color:#117a3e}
+.stat span{color:var(--muted);font-size:.85rem}
+.toolbar{display:flex;gap:12px;flex-wrap:wrap}
+.toolbar select{width:auto;min-width:170px}
+.toolbar input{flex:1;min-width:200px}
+.actions{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-top:10px}
+.actions select{width:auto}
+.tag.st{background:var(--glow);border-color:var(--accent);color:var(--ink)}
+.login{max-width:420px;margin:0 auto}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;scroll-behavior:auto!important}}
+</style>
+</head>
+<body>
+<header class="bar"><div class="wrap">
+  <a class="logo" href="#home" aria-label="Drizz">
+    <img src="/logo.png" alt="Logo Drizz" width="52" height="52">
+    DRIZZ
+  </a>
+  
+  
+  <select class="langsel" style="margin-left:auto" id="lang" aria-label="Language"><option value="ms">BM</option><option value="id">ID</option><option value="en">EN</option></select>
+  <button class="theme" id="logout" hidden style="width:auto;padding:0 14px;font-weight:700" data-i18n="logout"></button>
+  <button class="theme" id="theme" aria-label="Tukar tema gelap atau terang" title="Tukar tema">🌓</button>
+</div></header>
+<main>
+<section class="s" id="login" style="padding-top:64px"><div class="wrap"><div class="card login">
+  <h2 data-i18n="login_h"></h2>
+  <form id="lform" novalidate>
+    <label><span data-i18n="pw"></span><input type="password" id="pw" autocomplete="current-password"></label>
+    <p class="err" id="lerr" role="alert"></p>
+    <div><button class="btn solid" type="submit" data-i18n="login"></button></div>
+  </form>
+</div></div></section>
+<section class="s" id="dash" hidden style="padding-top:48px"><div class="wrap">
+  <h2 data-i18n="adm_h"></h2>
+  <p class="lead" data-i18n="adm_l"></p>
+  <div class="stats" id="stats"></div>
+  <div class="toolbar">
+    <select id="fstatus" aria-label="Status"><option value="all" data-i18n="all"></option><option value="new" data-i18n="s_new"></option><option value="progress" data-i18n="s_progress"></option><option value="done" data-i18n="s_done"></option><option value="rejected" data-i18n="s_rejected"></option></select>
+    <input id="fsearch" data-i18n-ph="ph_search" autocomplete="off">
+    <button class="btn ghost" id="refresh" type="button" style="padding:10px 18px" data-i18n="refresh"></button>
+  </div>
+  <div class="list" id="alist" style="margin-top:20px"></div>
+</div></section>
+</main>
+<div class="toast" id="toast" role="status"></div>
+<script>
+(function(){
+  var store=null; try{store=window.localStorage}catch(e){}
+  var D={
+  ms:{n_home:'Utama',n_feat:'Ciri',n_docs:'Panduan',n_contact:'Hubungi',start:'Mulakan',h1:'Minta Addon',sub:'Integrasi Khas • Selamat • Lancar',start2:'Mulakan →',more:'Ketahui Lanjut',trust:'Dipercayai oleh pemain di seluruh dunia • Dibina untuk integrasi moden',
+   feat_h:'Ciri',feat_l:'Semua yang anda perlukan untuk menghantar idea addon Minecraft dan melihatnya jadi kenyataan.',c1h:'Integrasi Khas',c1p:'Terangkan addon impian anda: mob, senjata, blok atau mekanik baharu.',c2h:'Selamat',c2p:'Permintaan anda disimpan dalam pelayar dan tidak dikongsi tanpa kebenaran.',c3h:'Lancar',c3p:'Hantar permintaan dengan mudah dan lihat senarai anda tersusun.',
+   docs_h:'Panduan',docs_l:'Cara menghantar permintaan dengan betul.',d1:'<b>Isi borang</b> dengan tajuk dan jenis addon.',d2:'<b>Tulis penerangan</b> yang jelas: rupa, kebolehan, dan cara mendapatkannya.',d3:'<b>Hantar</b>, dan permintaan anda akan muncul dalam senarai.',
+   req_h:'Minta Addon',req_l:'Hantar permintaan anda di bawah.',f_name:'Nama anda',ph_name:'cth: Steve',f_title:'Tajuk addon',ph_title:'cth: Naga Hutan Ajaib',f_type:'Jenis',f_ver:'Versi Minecraft',f_desc:'Penerangan',ph_desc:'Apa yang addon ini patut buat?',submit:'Hantar permintaan →',
+   t_mob:'Mob baharu',t_wpn:'Senjata & alatan',t_blk:'Blok & dimensi',t_mech:'Mekanik permainan',t_tex:'Texture pack',t_oth:'Lain-lain',v_bl:'Bedrock (terkini)',v_b120:'Bedrock 1.20.x',v_java:'Java (mod)',
+   footer:'Hubungi pentadbir melalui Discord atau e-mel anda sendiri (tukar teks ini). Bukan produk rasmi Mojang atau Microsoft.',
+   e1:'Isi nama anda dan tajuk addon.',e2:'Penerangan terlalu pendek. Tulis sekurang-kurangnya 15 aksara.',sent:'Permintaan dihantar',deleted:'Permintaan dipadam',empty:'Belum ada permintaan. Jadi yang pertama hantar idea anda.',by:'oleh',del:'Padam permintaan saya',theme:'Tukar tema gelap atau terang'},
+  id:{n_home:'Beranda',n_feat:'Fitur',n_docs:'Panduan',n_contact:'Kontak',start:'Mulai',h1:'Minta Addon',sub:'Integrasi Kustom • Aman • Lancar',start2:'Mulai →',more:'Pelajari Lebih Lanjut',trust:'Dipercaya pemain di seluruh dunia • Dibuat untuk integrasi modern',
+   feat_h:'Fitur',feat_l:'Semua yang kamu butuhkan untuk mengirim ide addon Minecraft dan melihatnya jadi nyata.',c1h:'Integrasi Kustom',c1p:'Jelaskan addon impianmu: mob, senjata, blok, atau mekanik baru.',c2h:'Aman',c2p:'Permintaanmu disimpan di browser dan tidak dibagikan tanpa izin.',c3h:'Lancar',c3p:'Kirim permintaan dengan mudah dan lihat daftarmu tersusun rapi.',
+   docs_h:'Panduan',docs_l:'Cara mengirim permintaan dengan benar.',d1:'<b>Isi formulir</b> dengan judul dan jenis addon.',d2:'<b>Tulis deskripsi</b> yang jelas: tampilan, kemampuan, dan cara mendapatkannya.',d3:'<b>Kirim</b>, lalu permintaanmu akan muncul di daftar.',
+   req_h:'Minta Addon',req_l:'Kirim permintaanmu di bawah ini.',f_name:'Namamu',ph_name:'mis: Steve',f_title:'Judul addon',ph_title:'mis: Naga Hutan Ajaib',f_type:'Jenis',f_ver:'Versi Minecraft',f_desc:'Deskripsi',ph_desc:'Apa yang harus dilakukan addon ini?',submit:'Kirim permintaan →',
+   t_mob:'Mob baru',t_wpn:'Senjata & peralatan',t_blk:'Blok & dimensi',t_mech:'Mekanik permainan',t_tex:'Texture pack',t_oth:'Lainnya',v_bl:'Bedrock (terbaru)',v_b120:'Bedrock 1.20.x',v_java:'Java (mod)',
+   footer:'Hubungi admin lewat Discord atau email kamu sendiri (ganti teks ini). Bukan produk resmi Mojang atau Microsoft.',
+   e1:'Isi namamu dan judul addon.',e2:'Deskripsi terlalu pendek. Tulis minimal 15 karakter.',sent:'Permintaan terkirim',deleted:'Permintaan dihapus',empty:'Belum ada permintaan. Jadilah yang pertama mengirim idemu.',by:'oleh',del:'Hapus permintaan saya',theme:'Ganti tema gelap atau terang'},
+  en:{n_home:'Home',n_feat:'Features',n_docs:'Docs',n_contact:'Contact',start:'Get Started',h1:'Request Addon',sub:'Custom Integration • Secure • Seamless',start2:'Get Started →',more:'Learn More',trust:'Trusted by players worldwide • Built for modern integrations',
+   feat_h:'Features',feat_l:'Everything you need to send in your Minecraft addon idea and see it come to life.',c1h:'Custom Integration',c1p:'Describe your dream addon: a mob, weapon, block or new mechanic.',c2h:'Secure',c2p:'Your requests are stored in your browser and never shared without permission.',c3h:'Seamless',c3p:'Submit a request in seconds and keep your list neatly organized.',
+   docs_h:'Docs',docs_l:'How to submit a request properly.',d1:'<b>Fill in the form</b> with the addon title and type.',d2:'<b>Write a clear description</b>: looks, abilities and how to get it.',d3:'<b>Submit</b>, and your request will appear in the list.',
+   req_h:'Request Addon',req_l:'Send your request below.',f_name:'Your name',ph_name:'e.g. Steve',f_title:'Addon title',ph_title:'e.g. Enchanted Forest Dragon',f_type:'Type',f_ver:'Minecraft version',f_desc:'Description',ph_desc:'What should this addon do?',submit:'Submit request →',
+   t_mob:'New mob',t_wpn:'Weapons & tools',t_blk:'Blocks & dimensions',t_mech:'Game mechanics',t_tex:'Texture pack',t_oth:'Other',v_bl:'Bedrock (latest)',v_b120:'Bedrock 1.20.x',v_java:'Java (mod)',
+   footer:'Contact the admin through your own Discord or email (replace this text). Not an official Mojang or Microsoft product.',
+   e1:'Enter your name and the addon title.',e2:'Description is too short. Write at least 15 characters.',sent:'Request submitted',deleted:'Request deleted',empty:'No requests yet. Be the first to send your idea.',by:'by',del:'Delete my request',theme:'Toggle dark or light theme'}
+  };
+  var X={
+ ms:{n_admin:'Admin',my_h:'Permintaan saya',priv:'Hanya anda dan admin boleh melihat permintaan anda.',c2p:'Permintaan anda hanya boleh dilihat oleh anda dan admin.',adm_h:'Papan pemuka admin',adm_l:'Hanya admin boleh melihat dan mengurus semua permintaan addon.',s_total:'Jumlah',s_new:'Baharu',s_progress:'Dalam proses',s_done:'Siap',s_rejected:'Ditolak',all:'Semua status',ph_search:'Cari tajuk, nama atau penerangan',none:'Tiada permintaan sepadan.',nodb:'Menghantar permintaan memerlukan anda log masuk ke claude.ai dan mempunyai akses penyumbang pada halaman ini.',save_err:'Gagal menyimpan. Cuba lagi.',adel:'Padam'},
+ id:{n_admin:'Admin',my_h:'Permintaan saya',priv:'Hanya kamu dan admin yang bisa melihat permintaanmu.',c2p:'Permintaanmu hanya bisa dilihat olehmu dan admin.',adm_h:'Dasbor admin',adm_l:'Hanya admin yang dapat melihat dan mengelola semua permintaan addon.',s_total:'Total',s_new:'Baru',s_progress:'Diproses',s_done:'Selesai',s_rejected:'Ditolak',all:'Semua status',ph_search:'Cari judul, nama, atau deskripsi',none:'Tidak ada permintaan yang cocok.',nodb:'Mengirim permintaan memerlukan login ke claude.ai dan akses kontributor pada halaman ini.',save_err:'Gagal menyimpan. Coba lagi.',adel:'Hapus'},
+ en:{n_admin:'Admin',my_h:'My requests',priv:'Only you and the admin can see your requests.',c2p:'Your requests are visible only to you and the admin.',adm_h:'Admin dashboard',adm_l:'Only admins can view and manage every addon request.',s_total:'Total',s_new:'New',s_progress:'In progress',s_done:'Done',s_rejected:'Rejected',all:'All statuses',ph_search:'Search title, name or description',none:'No matching requests.',nodb:'Sending requests needs a claude.ai login and contributor access to this page.',save_err:'Could not save. Try again.',adel:'Delete'}
+ };
+ ['ms','id','en'].forEach(function(l){Object.assign(D[l],X[l])});
+  var X3={
+ ms:{rm:'Buang dari senarai',login_h:'Login admin',pw:'Kata laluan',login:'Login',logout:'Logout',refresh:'Muat semula',bad_pw:'Kata laluan salah.',srv_err:'Ralat pelayan. Cuba lagi.',confirm_del:'Padam permintaan ini?',too_many:'Terlalu banyak percubaan. Cuba lagi sebentar lagi.',no_pw:'ADMIN_PASSWORD belum ditetapkan di Vercel.',rate:'Terlalu banyak permintaan dihantar. Cuba lagi sejam lagi.'},
+ id:{rm:'Hapus dari daftar',login_h:'Login admin',pw:'Kata sandi',login:'Login',logout:'Logout',refresh:'Muat ulang',bad_pw:'Kata sandi salah.',srv_err:'Kesalahan server. Coba lagi.',confirm_del:'Hapus permintaan ini?',too_many:'Terlalu banyak percobaan. Coba lagi nanti.',no_pw:'ADMIN_PASSWORD belum diatur di Vercel.',rate:'Terlalu banyak permintaan terkirim. Coba lagi satu jam lagi.'},
+ en:{rm:'Remove from list',login_h:'Admin login',pw:'Password',login:'Login',logout:'Logout',refresh:'Refresh',bad_pw:'Wrong password.',srv_err:'Server error. Try again.',confirm_del:'Delete this request?',too_many:'Too many attempts. Try again shortly.',no_pw:'ADMIN_PASSWORD is not set in Vercel.',rate:'Too many requests sent. Try again in an hour.'}
+ };
+ ['ms','id','en'].forEach(function(l){Object.assign(D[l],X3[l])});
+ var X5={ms:{notify_ok:'Bukti dihantar ke WhatsApp.',notify_err:'Status disimpan, tetapi gagal hantar ke WhatsApp.'},id:{notify_ok:'Bukti terkirim ke WhatsApp.',notify_err:'Status tersimpan, tetapi gagal mengirim ke WhatsApp.'},en:{notify_ok:'Proof sent to WhatsApp.',notify_err:'Status saved, but sending to WhatsApp failed.'}};
+ ['ms','id','en'].forEach(function(l){Object.assign(D[l],X5[l])});
+  var lang='ms';
+  try{var sl=store&&store.getItem('drizz-lang'); if(sl&&D[sl]) lang=sl}catch(e){}
+  var LOC={ms:'ms-MY',id:'id-ID',en:'en-GB'}, STS=['new','progress','done','rejected'];
+  function T(k){return D[lang][k]||k}
+  function TK(k){var d=D[lang];return d['t_'+k]||d['v_'+k]||d['s_'+k]||k}
+  function esc(t){var d=document.createElement('div');d.textContent=t==null?'':t;return d.innerHTML}
+  function $(id){return document.getElementById(id)}
+  function toast(m){var t=$('toast');t.textContent=m;t.classList.add('show');setTimeout(function(){t.classList.remove('show')},2400)}
+  function byTs(a,b){return (b.ts||0)-(a.ts||0)}
+  function head(i){
+    var date=i.ts?new Date(i.ts).toLocaleDateString(LOC[lang]):'';
+    return '<article class="item"><div><h3>'+esc(i.tajuk)+'</h3><div class="tags"><span class="tag st">'+esc(TK(i.status||'new'))+'</span><span class="tag">'+esc(TK(i.jenis))+'</span><span class="tag">'+esc(TK(i.versi))+'</span><span class="tag">'+esc(T('by'))+' '+esc(i.nama)+'</span>'+(i.email?'<span class="tag">'+esc(i.email)+'</span>':'')+(date?'<span class="tag">'+esc(date)+'</span>':'')+'</div></div><p>'+esc(i.desc)+'</p>';
+  }
+  var root=document.documentElement, mq=matchMedia('(prefers-color-scheme:dark)');
+  try{var t0=store&&store.getItem('drizz-theme'); if(t0) root.dataset.theme=t0}catch(e){}
+  $('theme').addEventListener('click',function(){
+    var dark=root.dataset.theme?root.dataset.theme==='dark':mq.matches;
+    root.dataset.theme=dark?'light':'dark';
+    try{store&&store.setItem('drizz-theme',root.dataset.theme)}catch(e){}
+  });
+  function baseLang(l){
+    lang=l; document.documentElement.lang=l; $('lang').value=l;
+    try{store&&store.setItem('drizz-lang',l)}catch(e){}
+    document.querySelectorAll('[data-i18n]').forEach(function(el){var v=D[l][el.dataset.i18n]; if(v==null)return; if(el.tagName==='OPTION')el.textContent=v; else el.innerHTML=v});
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el){el.placeholder=D[l][el.dataset.i18nPh]});
+    var th=$('theme'); th.setAttribute('aria-label',D[l].theme); th.title=D[l].theme;
+  }
+
+  var pw=''; try{pw=sessionStorage.getItem('drizz-admin-pw')||''}catch(e){}
+  var items=[], shown=[];
+  function show(on){$('login').hidden=on; $('dash').hidden=!on; $('logout').hidden=!on}
+  function api(method,body){
+    return fetch('/api/admin/requests',{method:method,headers:{'Content-Type':'application/json','x-admin-password':pw},body:body?JSON.stringify(body):undefined});
+  }
+  function renderAdmin(){
+    var all=items.slice().sort(byTs);
+    var c=function(s){return all.filter(function(x){return (x.status||'new')===s}).length};
+    $('stats').innerHTML=[['s_total',all.length],['s_new',c('new')],['s_progress',c('progress')],['s_done',c('done')]].map(function(p){return '<div class="stat"><b>'+p[1]+'</b><span>'+esc(T(p[0]))+'</span></div>'}).join('');
+    var fs=$('fstatus').value, q=$('fsearch').value.trim().toLowerCase();
+    shown=all.filter(function(x){
+      if(fs!=='all'&&(x.status||'new')!==fs)return false;
+      return !q||((x.tajuk||'')+' '+(x.nama||'')+' '+(x.desc||'')).toLowerCase().indexOf(q)>-1;
+    });
+    $('alist').innerHTML=shown.length?shown.map(function(i,n){
+      return head(i)+'<div class="actions"><select class="stsel" data-i="'+n+'" aria-label="Status">'+STS.map(function(s){return '<option value="'+s+'"'+((i.status||'new')===s?' selected':'')+'>'+esc(TK(s))+'</option>'}).join('')+'</select><button class="del" data-adel="'+n+'">'+esc(T('adel'))+'</button></div></article>';
+    }).join(''):'<div class="empty">'+esc(T(all.length?'none':'empty'))+'</div>';
+  }
+  function setLang(l){baseLang(l); renderAdmin()}
+  // returns error key or '' on success
+  async function load(){
+    try{
+      var r=await api('GET');
+      if(r.status===401)return 'bad_pw';
+      if(r.status===429)return 'too_many';
+      if(!r.ok){var e=await r.json().catch(function(){return {}}); return e.error==='no_password'?'no_pw':'srv_err'}
+      var j=await r.json(); items=j.items||[]; show(true); renderAdmin(); return '';
+    }catch(e){return 'srv_err'}
+  }
+  function logout(){pw=''; try{sessionStorage.removeItem('drizz-admin-pw')}catch(e){} items=[]; show(false)}
+  $('lform').addEventListener('submit',async function(e){
+    e.preventDefault(); pw=$('pw').value; $('lerr').textContent='';
+    var k=await load();
+    if(k){$('lerr').textContent=T(k); pw=''; return}
+    try{sessionStorage.setItem('drizz-admin-pw',pw)}catch(x){}
+    $('pw').value='';
+  });
+  $('logout').addEventListener('click',logout);
+  $('refresh').addEventListener('click',async function(){var k=await load(); if(k==='bad_pw')logout(); else if(k)toast(T(k))});
+  $('fstatus').addEventListener('change',renderAdmin);
+  $('fsearch').addEventListener('input',renderAdmin);
+  $('alist').addEventListener('change',async function(e){
+    var s=e.target.closest('.stsel'); if(!s)return;
+    var it=shown[s.dataset.i]; if(!it)return;
+    try{
+      var r=await api('PATCH',{id:it.id,uid:it.uid,status:s.value});
+      if(!r.ok)throw 0; var j=await r.json().catch(function(){return {}}); it.status=s.value; renderAdmin(); if(j.notify==='sent')toast(T('notify_ok')); else if(j.notify==='failed')toast(T('notify_err'));
+    }catch(x){toast(T('save_err')); renderAdmin()}
+  });
+  $('alist').addEventListener('click',async function(e){
+    var d=e.target.closest('[data-adel]'); if(!d)return;
+    var it=shown[d.dataset.adel]; if(!it||!confirm(T('confirm_del')))return;
+    try{
+      var r=await api('DELETE',{id:it.id,uid:it.uid});
+      if(!r.ok)throw 0; items=items.filter(function(x){return x.id!==it.id}); renderAdmin(); toast(T('deleted'));
+    }catch(x){toast(T('save_err'))}
+  });
+  $('lang').addEventListener('change',function(e){setLang(e.target.value)});
+  setLang(lang);
+  if(pw){load().then(function(k){if(k==='bad_pw')logout()})}
+})();
+</script>
+</body>
+</html>
